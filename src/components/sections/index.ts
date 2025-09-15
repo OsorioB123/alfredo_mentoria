@@ -1,0 +1,7 @@
+export { HeroSection } from "./hero-section"
+export { MentorSection } from "./mentor-section"
+export { AchievementsSection } from "./achievements-section"
+export { ScheduleSection } from "./schedule-section"
+export { IncludesSection } from "./includes-section"
+export { TargetAudienceSection } from "./target-audience-section"
+export { CtaSection } from "./cta-section"
