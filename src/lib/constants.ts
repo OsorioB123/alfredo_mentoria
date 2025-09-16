@@ -1,13 +1,19 @@
+// URLs base para o projeto
+export const BASE_PATH = "/alfredo-mentoria"
+
 export const SITE_CONFIG = {
   name: "Do Zero ao Primeiro Contêiner — Alfredo ABN8 Trading",
   description: "Um programa pra você que tá começando — mas não quer mais ficar parado. Em 6 semanas, eu te ajudo a tirar sua ideia do papel e colocar seu negócio de importação pra rodar de verdade.",
-  url: "https://alfredo-landing.vercel.app",
-  ogImage: "https://alfredo-landing.vercel.app/og.jpg",
+  url: "https://www.trendlycorp.com/alfredo-mentoria",
+  ogImage: "https://www.trendlycorp.com/alfredo-mentoria/og.jpg",
   links: {
     twitter: "https://twitter.com/abn8trading",
     linkedin: "https://linkedin.com/company/abn8trading",
     instagram: "https://instagram.com/abn8trading",
-    application: "/inscricao",
+    application: `${BASE_PATH}/inscricao`,
+    home: BASE_PATH,
+    terms: `${BASE_PATH}/termos-e-condicoes`,
+    thankYou: `${BASE_PATH}/inscricao/obrigado`,
   },
 }
 

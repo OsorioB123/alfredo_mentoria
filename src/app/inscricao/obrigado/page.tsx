@@ -437,7 +437,7 @@ export default function ObrigadoPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.8 }}
               >
-                <Link href="/">
+                <Link href={SITE_CONFIG.links.home}>
                   <AnimatedButton
                     variant="outline"
                     size="lg"

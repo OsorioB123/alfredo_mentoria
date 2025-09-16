@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/alfredo-mentoria",
+      "destination": "/"
+    },
+    {
+      "source": "/alfredo-mentoria/inscricao",
+      "destination": "/inscricao"
+    },
+    {
+      "source": "/alfredo-mentoria/inscricao/obrigado",
+      "destination": "/inscricao/obrigado"
+    },
+    {
+      "source": "/alfredo-mentoria/termos-e-condicoes",
+      "destination": "/termos"
+    }
+  ]
+}

@@ -23,6 +23,7 @@ import {
   type FormData
 } from "@/lib/validations/form"
 import { submitToGoogleSheets, checkEnvironmentVariables } from "@/lib/services/google-sheets"
+import { SITE_CONFIG } from "@/lib/constants"
 
 const stepVariants = {
   enter: (direction: number) => ({
@@ -129,7 +130,7 @@ export default function InscricaoPage() {
         }
 
         // Redirecionar para página de agradecimento
-        router.push("/inscricao/obrigado")
+        router.push(SITE_CONFIG.links.thankYou)
       } else {
         console.error('❌ Erro no envio:', result.error)
         setSubmitError(result.error || 'Erro desconhecido ao enviar formulário')
@@ -389,7 +390,7 @@ export default function InscricaoPage() {
           <span>
             Aceito os{" "}
             <Link
-              href="/termos"
+              href={SITE_CONFIG.links.terms}
               className="text-yellow-400 hover:text-yellow-300 underline transition-colors duration-200"
               onClick={(e) => e.stopPropagation()}
             >

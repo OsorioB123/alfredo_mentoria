@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
+import { SITE_CONFIG } from "@/lib/constants"
 
 export default function TermosPage() {
   const router = useRouter()
@@ -11,7 +12,7 @@ export default function TermosPage() {
     if (typeof window !== 'undefined' && window.history.length > 1) {
       router.back()
     } else {
-      router.push('/inscricao')
+      router.push(SITE_CONFIG.links.application)
     }
   }
 
