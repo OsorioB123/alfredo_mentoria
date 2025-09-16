@@ -70,7 +70,7 @@ export const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>
     className,
     ...props
   }, ref) => {
-    const baseClasses = "relative inline-flex items-center justify-center font-medium tracking-tight transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+    const baseClasses = "relative inline-flex items-center justify-center font-medium tracking-tight transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none gap-2"
 
     const variantClasses = {
       primary: "bg-red-600 hover:bg-red-700 text-white border border-red-600 focus:ring-red-500",
@@ -79,9 +79,9 @@ export const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>
     }
 
     const sizeClasses = {
-      sm: "px-4 py-2 text-sm rounded-lg gap-1.5",
-      md: "px-6 py-3 text-base rounded-full gap-2",
-      lg: "px-8 py-4 text-lg rounded-full gap-2.5"
+      sm: "px-4 py-2 text-sm rounded-lg",
+      md: "px-6 py-3 text-base rounded-full",
+      lg: "px-8 py-4 text-lg rounded-full"
     }
 
     return (

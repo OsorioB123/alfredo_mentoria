@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Send, ChevronLeft, ChevronRight } from "lucide-react"
@@ -10,7 +10,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { AnimatedButton } from "@/components/ui/animated-button"
 import { AnimatedInput, AnimatedTextarea, AnimatedRadioGroup, AnimatedCheckbox } from "@/components/ui/animated-form"
 import { AnimatedProgress, LoadingOverlay, PageTransition } from "@/components/ui/page-transition"
+import { AutosaveIndicator, AutosaveRecoveryBanner } from "@/components/ui/autosave-indicator"
 import { FadeIn } from "@/components/ui/fade-in"
+import { useFormAutosave } from "@/lib/hooks/use-form-autosave"
 import { cn } from "@/lib/utils"
 import {
   formSchema,
@@ -45,6 +47,7 @@ export default function InscricaoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [direction, setDirection] = useState(0)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [showRecoveryBanner, setShowRecoveryBanner] = useState(false)
   const router = useRouter()
 
   const {
@@ -52,6 +55,7 @@ export default function InscricaoPage() {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
     trigger
   } = useForm<FormData>({
@@ -60,6 +64,40 @@ export default function InscricaoPage() {
   })
 
   const watchedValues = watch()
+
+  // Auto-save functionality
+  const {
+    lastSaved,
+    isSaving,
+    loadSavedData,
+    clearSavedData,
+    hasSavedData
+  } = useFormAutosave({
+    watch,
+    formId: "inscricao-mentoria",
+    debounceMs: 3000
+  })
+
+  // Check for saved data on mount
+  useEffect(() => {
+    if (hasSavedData()) {
+      setShowRecoveryBanner(true)
+    }
+  }, [])
+
+  const handleRecoverData = () => {
+    const savedData = loadSavedData()
+    if (savedData) {
+      // Reset form with saved data
+      reset(savedData)
+      setShowRecoveryBanner(false)
+    }
+  }
+
+  const handleDiscardSavedData = () => {
+    clearSavedData()
+    setShowRecoveryBanner(false)
+  }
 
   const validateCurrentStep = async () => {
     const schemas = [step1Schema, step2Schema, step3Schema, step4Schema, step5Schema]
@@ -115,6 +153,9 @@ export default function InscricaoPage() {
 
       if (result.success) {
         console.log('✅ Formulário enviado com sucesso!')
+
+        // Clear saved data since form was submitted successfully
+        clearSavedData()
 
         // Track conversion success
         if (typeof window !== 'undefined' && (window as any).trackFormSubmission) {
@@ -438,35 +479,79 @@ export default function InscricaoPage() {
           </p>
         </FadeIn>
 
-        {/* Progress indicator animado */}
+        {/* Recovery Banner */}
+        {showRecoveryBanner && (
+          <AutosaveRecoveryBanner
+            onRecover={handleRecoverData}
+            onDiscard={handleDiscardSavedData}
+          />
+        )}
+
+        {/* Progress indicator animado com labels - responsivo */}
         <FadeIn delay={0.2} className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            {[1, 2, 3, 4, 5].map((step) => (
-              <motion.div
-                key={step}
-                className={cn(
-                  "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-500",
-                  step <= currentStep
-                    ? "bg-yellow-600 text-white"
-                    : "bg-gray-700 text-gray-400"
-                )}
-                animate={{
-                  scale: step === currentStep ? [1, 1.1, 1] : 1
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                {step <= currentStep ? (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    ✓
-                  </motion.span>
-                ) : (
-                  step
-                )}
-              </motion.div>
+          <div className="flex justify-between items-center mb-4 px-2 sm:px-0">
+            {[
+              { step: 1, label: "Dados" },
+              { step: 2, label: "Negócio" },
+              { step: 3, label: "Compromisso" },
+              { step: 4, label: "Seleção" },
+              { step: 5, label: "Final" }
+            ].map(({ step, label }) => (
+              <div key={step} className="flex flex-col items-center flex-1">
+                <motion.div
+                  className={cn(
+                    "w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium transition-all duration-500 border-2",
+                    step < currentStep
+                      ? "bg-green-600 text-white border-green-600 shadow-lg shadow-green-600/30"
+                      : step === currentStep
+                      ? "bg-yellow-600 text-white border-yellow-600 shadow-lg shadow-yellow-600/30"
+                      : "bg-gray-700 text-gray-400 border-gray-600"
+                  )}
+                  animate={{
+                    scale: step === currentStep ? [1, 1.15, 1] : 1,
+                    boxShadow: step === currentStep
+                      ? "0 0 20px rgba(202, 138, 4, 0.4)"
+                      : step < currentStep
+                      ? "0 0 15px rgba(34, 197, 94, 0.3)"
+                      : "0 0 0px rgba(0, 0, 0, 0)"
+                  }}
+                  transition={{ duration: 0.4 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {step < currentStep ? (
+                    <motion.span
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      ✓
+                    </motion.span>
+                  ) : step === currentStep ? (
+                    <motion.span
+                      animate={{
+                        color: ["#ffffff", "#fbbf24", "#ffffff"],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      {step}
+                    </motion.span>
+                  ) : (
+                    step
+                  )}
+                </motion.div>
+                <motion.span
+                  className={cn(
+                    "text-xs mt-1 sm:mt-2 font-medium transition-all duration-300 text-center max-w-[60px] sm:max-w-none",
+                    step <= currentStep ? "text-white" : "text-gray-500"
+                  )}
+                  animate={{
+                    opacity: step === currentStep ? [0.7, 1, 0.7] : 1
+                  }}
+                  transition={step === currentStep ? { duration: 2, repeat: Infinity } : {}}
+                >
+                  {label}
+                </motion.span>
+              </div>
             ))}
           </div>
 
@@ -475,6 +560,23 @@ export default function InscricaoPage() {
             max={5}
             showPercentage
           />
+
+          {/* Mensagem motivacional baseada no progresso */}
+          <motion.div
+            className="mt-4 text-center"
+            key={currentStep}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <p className="text-sm text-gray-400">
+              {currentStep === 1 && "Vamos começar! Primeiros dados pessoais 👤"}
+              {currentStep === 2 && "Agora queremos conhecer seu negócio 🏢"}
+              {currentStep === 3 && "Entendendo seu nível de comprometimento 💪"}
+              {currentStep === 4 && "Quase lá! Seleção e confirmação ✨"}
+              {currentStep === 5 && "Última etapa! Vamos finalizar sua inscrição 🚀"}
+            </p>
+          </motion.div>
         </FadeIn>
 
         {/* Formulário */}
@@ -487,6 +589,15 @@ export default function InscricaoPage() {
               <AnimatePresence mode="wait" custom={direction}>
                 {renderCurrentStep()}
               </AnimatePresence>
+            </div>
+
+            {/* Auto-save indicator */}
+            <div className="flex justify-center mt-4">
+              <AutosaveIndicator
+                isSaving={isSaving}
+                lastSaved={lastSaved}
+                className="mb-4"
+              />
             </div>
 
             {/* Navigation buttons */}
@@ -534,7 +645,7 @@ export default function InscricaoPage() {
                     className="flex items-center gap-2"
                   >
                     {!isSubmitting && <Send className="w-4 h-4" />}
-                    <span>{isSubmitting ? "Enviando..." : "Enviar Inscrição"}</span>
+                    {isSubmitting ? "Enviando..." : "Enviar Inscrição"}
                   </AnimatedButton>
                 )}
               </div>

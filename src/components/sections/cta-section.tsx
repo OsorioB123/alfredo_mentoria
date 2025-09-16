@@ -28,7 +28,7 @@ export function CtaSection() {
             <Button asChild className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-lg font-semibold tracking-tight text-white bg-red-600 hover:bg-red-700 transition-colors border border-red-600">
               <a href={SITE_CONFIG.links.application}>
                 <Send className="w-5 h-5" strokeWidth={1.5} />
-                <span>Quero Me Inscrever</span>
+                Candidatar-se às 10 Vagas
               </a>
             </Button>
 

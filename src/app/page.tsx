@@ -5,6 +5,7 @@ import { AchievementsSection } from "@/components/sections/achievements-section"
 import { ScheduleSection } from "@/components/sections/schedule-section"
 import { IncludesSection } from "@/components/sections/includes-section"
 import { TargetAudienceSection } from "@/components/sections/target-audience-section"
+import { FAQSection } from "@/components/sections/faq-section"
 import { CtaSection } from "@/components/sections/cta-section"
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
       <ScheduleSection />
       <IncludesSection />
       <TargetAudienceSection />
+      <FAQSection />
       <CtaSection />
 
       <ScrollToTop />

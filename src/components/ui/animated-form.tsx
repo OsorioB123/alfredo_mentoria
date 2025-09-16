@@ -247,9 +247,14 @@ export function AnimatedRadioGroup({
           >
             <motion.label
               htmlFor={option.id}
-              className="flex items-center space-x-3 cursor-pointer group w-full py-2 px-3 rounded-lg hover:bg-gray-800/50 transition-all duration-200"
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
+              className={cn(
+                "flex items-center space-x-3 cursor-pointer group w-full py-3 px-4 rounded-lg transition-all duration-200 border",
+                value === option.value
+                  ? "bg-yellow-600/10 border-yellow-600/30 shadow-lg shadow-yellow-600/10"
+                  : "border-transparent hover:border-gray-700 hover:bg-gray-800/50"
+              )}
+              whileHover={{ scale: 1.005 }}
+              whileTap={{ scale: 0.995 }}
               onClick={(e) => {
                 e.preventDefault()
                 onValueChange(option.value)
@@ -342,9 +347,9 @@ export function AnimatedCheckbox({
     >
       <motion.label
         htmlFor={id}
-        className="flex items-start space-x-3 cursor-pointer group py-2 px-3 rounded-lg hover:bg-gray-800/50 transition-all duration-200"
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
+        className="flex items-start space-x-3 cursor-pointer group py-3 px-4 rounded-lg hover:bg-gray-800/50 transition-all duration-200 border border-transparent hover:border-gray-700"
+        whileHover={{ scale: 1.002 }}
+        whileTap={{ scale: 0.998 }}
         onClick={(e) => {
           e.preventDefault()
           onCheckedChange(!checked)

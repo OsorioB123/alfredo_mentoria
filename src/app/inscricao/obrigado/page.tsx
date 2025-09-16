@@ -441,7 +441,7 @@ export default function ObrigadoPage() {
                   <AnimatedButton
                     variant="outline"
                     size="lg"
-                    className="border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black"
+                    className="border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black flex items-center gap-2"
                   >
                     <ArrowLeft className="w-5 h-5" />
                     Voltar ao Início

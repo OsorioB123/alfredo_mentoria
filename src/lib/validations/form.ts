@@ -19,7 +19,7 @@ export const formSchema = z.object({
 
   // Passo 2 - Perfil do Negócio
   cnpj: z.enum(["sim", "nao"], {
-    message: "Selecione uma opção",
+    message: "Por favor, nos informe se você já possui CNPJ",
   }),
 
   sector: z
@@ -28,7 +28,7 @@ export const formSchema = z.object({
     .max(100, "Setor deve ter no máximo 100 caracteres"),
 
   importExperience: z.enum(["sim", "nao"], {
-    message: "Selecione uma opção",
+    message: "Por favor, nos conte se já tentou importar antes",
   }),
 
   whyImport: z
@@ -38,11 +38,11 @@ export const formSchema = z.object({
 
   // Passo 3 - Nível de Comprometimento
   phrase: z.enum(["pronto", "orientacao", "executo"], {
-    message: "Selecione uma opção",
+    message: "Por favor, escolha a frase que mais te representa",
   }),
 
   participation: z.enum(["sim", "depende", "restricoes"], {
-    message: "Selecione uma opção",
+    message: "Por favor, nos informe sobre sua disponibilidade",
   }),
 
   // Passo 4 - Seleção e Confirmação
@@ -52,17 +52,20 @@ export const formSchema = z.object({
     .max(1000, "Resposta deve ter no máximo 1000 caracteres"),
 
   secure: z.enum(["sim", "interesse", "incerto"], {
-    message: "Selecione uma opção",
+    message: "Por favor, nos conte sobre seu interesse em garantir a vaga",
   }),
 
   // Passo Final - Investimento
   investment: z.enum(["sim", "avaliar", "nao"], {
-    message: "Selecione uma opção",
+    message: "Por favor, nos informe sobre sua disponibilidade de investimento",
   }),
 
   // Termos
-  terms: z.boolean().refine((val) => val === true, {
-    message: "Você deve concordar com os termos",
+  terms: z.boolean({
+    required_error: "Por favor, aceite os termos para continuar",
+    invalid_type_error: "Por favor, aceite os termos para continuar",
+  }).refine((val) => val === true, {
+    message: "Você deve aceitar os termos e condições para continuar",
   }),
 })
 
