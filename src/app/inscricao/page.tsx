@@ -11,9 +11,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { AnimatedButton } from "@/components/ui/animated-button"
 import { AnimatedInput, AnimatedTextarea, AnimatedRadioGroup, AnimatedCheckbox } from "@/components/ui/animated-form"
 import { AnimatedProgress, LoadingOverlay, PageTransition } from "@/components/ui/page-transition"
-import { AutosaveIndicator, AutosaveRecoveryBanner } from "@/components/ui/autosave-indicator"
 import { FadeIn } from "@/components/ui/fade-in"
-import { useFormAutosave } from "@/lib/hooks/use-form-autosave"
 import { cn } from "@/lib/utils"
 import {
   formSchema,
@@ -48,7 +46,6 @@ export default function InscricaoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [direction, setDirection] = useState(0)
   const [submitError, setSubmitError] = useState<string | null>(null)
-  const [showRecoveryBanner, setShowRecoveryBanner] = useState(false)
   const router = useRouter()
 
   const {
@@ -61,44 +58,13 @@ export default function InscricaoPage() {
     trigger
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: "onChange"
+    mode: "onChange",
+    defaultValues: {
+      terms: false
+    }
   })
 
   const watchedValues = watch()
-
-  // Auto-save functionality
-  const {
-    lastSaved,
-    isSaving,
-    loadSavedData,
-    clearSavedData,
-    hasSavedData
-  } = useFormAutosave({
-    watch,
-    formId: "inscricao-mentoria",
-    debounceMs: 3000
-  })
-
-  // Check for saved data on mount
-  useEffect(() => {
-    if (hasSavedData()) {
-      setShowRecoveryBanner(true)
-    }
-  }, [])
-
-  const handleRecoverData = () => {
-    const savedData = loadSavedData()
-    if (savedData) {
-      // Reset form with saved data
-      reset(savedData)
-      setShowRecoveryBanner(false)
-    }
-  }
-
-  const handleDiscardSavedData = () => {
-    clearSavedData()
-    setShowRecoveryBanner(false)
-  }
 
   const validateCurrentStep = async () => {
     const schemas = [step1Schema, step2Schema, step3Schema, step4Schema, step5Schema]
@@ -154,9 +120,6 @@ export default function InscricaoPage() {
 
       if (result.success) {
         console.log('✅ Formulário enviado com sucesso!')
-
-        // Clear saved data since form was submitted successfully
-        clearSavedData()
 
         // Track conversion success
         if (typeof window !== 'undefined' && (window as any).trackFormSubmission) {
@@ -488,14 +451,6 @@ export default function InscricaoPage() {
           </p>
         </FadeIn>
 
-        {/* Recovery Banner */}
-        {showRecoveryBanner && (
-          <AutosaveRecoveryBanner
-            onRecover={handleRecoverData}
-            onDiscard={handleDiscardSavedData}
-          />
-        )}
-
         {/* Progress indicator animado com labels - responsivo */}
         <FadeIn delay={0.2} className="mb-8">
           <div className="flex justify-between items-center mb-4 px-2 sm:px-0">
@@ -598,15 +553,6 @@ export default function InscricaoPage() {
               <AnimatePresence mode="wait" custom={direction}>
                 {renderCurrentStep()}
               </AnimatePresence>
-            </div>
-
-            {/* Auto-save indicator */}
-            <div className="flex justify-center mt-4">
-              <AutosaveIndicator
-                isSaving={isSaving}
-                lastSaved={lastSaved}
-                className="mb-4"
-              />
             </div>
 
             {/* Navigation buttons */}

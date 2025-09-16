@@ -61,10 +61,7 @@ export const formSchema = z.object({
   }),
 
   // Termos
-  terms: z.boolean({
-    required_error: "Por favor, aceite os termos para continuar",
-    invalid_type_error: "Por favor, aceite os termos para continuar",
-  }).refine((val) => val === true, {
+  terms: z.boolean().refine((val) => val === true, {
     message: "Você deve aceitar os termos e condições para continuar",
   }),
 })

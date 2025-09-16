@@ -1,6 +1,5 @@
-import { ScrollToTop } from "@/components/layout/scroll-to-top"
-import { FadeIn } from "@/components/ui/fade-in"
-import { motion } from "framer-motion"
+"use client"
+
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
@@ -10,7 +9,7 @@ export default function TermosPage() {
       <div className="absolute w-full h-[816px] left-0 top-0 -z-10"></div>
 
       {/* Header com botão de voltar */}
-      <FadeIn className="relative z-10">
+      <div className="relative z-10">
         <section className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
           <div className="mb-8">
             <Link
@@ -22,12 +21,7 @@ export default function TermosPage() {
             </Link>
           </div>
 
-          <motion.div
-            className="bg-black/60 backdrop-blur-sm rounded-2xl border border-white/10 p-6 sm:p-8 shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="bg-black/60 backdrop-blur-sm rounded-2xl border border-white/10 p-6 sm:p-8 shadow-lg">
             <article className="prose prose-invert prose-lg max-w-none">
               <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white mb-6">
                 Termos e Condições de Uso
@@ -223,11 +217,9 @@ export default function TermosPage() {
                 </p>
               </div>
             </article>
-          </motion.div>
+          </div>
         </section>
-      </FadeIn>
-
-      <ScrollToTop />
+      </div>
     </div>
   )
 }
