@@ -17,7 +17,7 @@ export const SITE_CONFIG = {
 export const IMAGES = {
   alfredo: {
     hero: "https://i.ibb.co/v46S302P/C-pia-de-ALFREDO-0221.jpg?w=800&q=80",
-    mentor: "https://i.ibb.co/PZMX1Fjy/upscalemedia-transformed.webp",
+    mentor: "https://i.ibb.co/NnjPB2RP/Whats-App-Image-2025-08-06-at-20-50-40.webp",
     background: "https://i.ibb.co/k2jYDptr/Gemini-Generated-Image-7n8acu7n8acu7n8a-1.webp?w=800&q=80"
   }
 }
