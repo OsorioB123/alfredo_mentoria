@@ -7,7 +7,7 @@ export const SITE_CONFIG = {
     twitter: "https://twitter.com/abn8trading",
     linkedin: "https://linkedin.com/company/abn8trading",
     instagram: "https://instagram.com/abn8trading",
-    application: "https://forms.abn8trading.com/aplicacao-mentoria",
+    application: "/inscricao",
   },
 }
 
