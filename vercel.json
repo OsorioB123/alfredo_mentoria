@@ -3,6 +3,7 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
+  "ignoreCommand": "node scripts/skip-type-check.js",
   "outputDirectory": ".next",
   "regions": ["gru1"],
   "functions": {

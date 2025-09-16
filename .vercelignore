@@ -1,0 +1,16 @@
+# TypeScript files to ignore during build
+*.ts.bak
+*.tsx.bak
+tsconfig.json.bak
+
+# Test files
+__tests__/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Development files
+.env.example
+README.md
+docs/
