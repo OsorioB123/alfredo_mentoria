@@ -543,7 +543,7 @@ export default function InscricaoPage() {
         </motion.div>
 
         <LoadingOverlay isVisible={isSubmitting} message="Enviando sua inscrição..." />
-      </section>
+        </section>
       </PageTransition>
     </div>
   )
