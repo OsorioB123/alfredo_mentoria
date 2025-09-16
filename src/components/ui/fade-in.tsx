@@ -14,7 +14,7 @@ interface FadeInProps extends Omit<HTMLMotionProps<"div">, "children"> {
   className?: string
 }
 
-const fadeVariants = (direction: string, distance: number): Variants => {
+const fadeVariants = (direction: string, distance: number): any => {
   const directions = {
     up: { y: distance },
     down: { y: -distance },
