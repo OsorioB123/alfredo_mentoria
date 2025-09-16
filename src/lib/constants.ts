@@ -7,10 +7,10 @@ export const SITE_CONFIG = {
     twitter: "https://twitter.com/abn8trading",
     linkedin: "https://linkedin.com/company/abn8trading",
     instagram: "https://instagram.com/abn8trading",
-    application: "/inscricao",
-    home: "/",
-    terms: "/termos",
-    thankYou: "/inscricao/obrigado",
+    application: "/alfredo-mentoria/inscricao",
+    home: "/alfredo-mentoria",
+    terms: "/alfredo-mentoria/termos-e-condicoes",
+    thankYou: "/alfredo-mentoria/inscricao/obrigado",
   },
 }
 
