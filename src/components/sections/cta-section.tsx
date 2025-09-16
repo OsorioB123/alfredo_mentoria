@@ -25,7 +25,7 @@ export function CtaSection() {
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-white/80 mb-8">O processo de seleção é feito através de um formulário detalhado, onde você responderá algumas perguntas para avaliarmos se seu perfil é compatível com a mentoria.</p>
 
-            <Button asChild className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-lg font-semibold tracking-tight text-white bg-red-600 hover:bg-red-700 transition-colors border border-red-600">
+            <Button asChild className="inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-semibold tracking-tight text-white bg-red-600 hover:bg-red-700 transition-colors border border-red-600">
               <a href={SITE_CONFIG.links.application}>
                 <Send className="w-5 h-5" strokeWidth={1.5} />
                 Candidatar-se às 10 Vagas

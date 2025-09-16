@@ -633,8 +633,8 @@ export default function InscricaoPage() {
                     variant="secondary"
                     className="flex items-center gap-2"
                   >
-                    Próximo
                     <ChevronRight className="w-4 h-4" />
+                    Próximo
                   </AnimatedButton>
                 ) : (
                   <AnimatedButton
@@ -644,7 +644,7 @@ export default function InscricaoPage() {
                     disabled={isSubmitting}
                     className="flex items-center gap-2"
                   >
-                    {!isSubmitting && <Send className="w-4 h-4" />}
+                    <Send className="w-4 h-4" />
                     {isSubmitting ? "Enviando..." : "Enviar Inscrição"}
                   </AnimatedButton>
                 )}

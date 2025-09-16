@@ -6,7 +6,6 @@ import { ArrowRight, Clock, Users, Target } from "lucide-react"
 import { IMAGES, STATS, SITE_CONFIG } from "@/lib/constants"
 import { AnimatedButton } from "@/components/ui/animated-button"
 import { AnimatedCard } from "@/components/ui/animated-card"
-import { UrgencyBanner } from "@/components/ui/urgency-banner"
 // import { AnimatedStat } from "@/components/ui/animated-number"
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/fade-in"
 
@@ -115,21 +114,12 @@ export function HeroSection() {
                 variant="primary"
                 size="lg"
                 onClick={() => window.location.href = SITE_CONFIG.links.application}
-                className="flex items-center justify-center gap-2"
+                className="flex items-center gap-3"
               >
                 <ArrowRight className="w-5 h-5" />
                 Garantir Minha Vaga Agora
               </AnimatedButton>
             </motion.div>
-          </FadeIn>
-
-          {/* Urgency Banner */}
-          <FadeIn delay={1.8} className="mt-6">
-            <UrgencyBanner
-              totalSpots={10}
-              spotsRemaining={7}
-              showTimer={true}
-            />
           </FadeIn>
 
           {/* Features com stagger animation */}
