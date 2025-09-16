@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/bruno/Documents/Alfredo/context/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
