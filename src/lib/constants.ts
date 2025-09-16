@@ -1,6 +1,3 @@
-// URLs base para o projeto
-export const BASE_PATH = "/alfredo-mentoria"
-
 export const SITE_CONFIG = {
   name: "Do Zero ao Primeiro Contêiner — Alfredo ABN8 Trading",
   description: "Um programa pra você que tá começando — mas não quer mais ficar parado. Em 6 semanas, eu te ajudo a tirar sua ideia do papel e colocar seu negócio de importação pra rodar de verdade.",
@@ -10,10 +7,10 @@ export const SITE_CONFIG = {
     twitter: "https://twitter.com/abn8trading",
     linkedin: "https://linkedin.com/company/abn8trading",
     instagram: "https://instagram.com/abn8trading",
-    application: `${BASE_PATH}/inscricao`,
-    home: BASE_PATH,
-    terms: `${BASE_PATH}/termos-e-condicoes`,
-    thankYou: `${BASE_PATH}/inscricao/obrigado`,
+    application: "/inscricao",
+    home: "/",
+    terms: "/termos",
+    thankYou: "/inscricao/obrigado",
   },
 }
 
