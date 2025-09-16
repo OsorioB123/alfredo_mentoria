@@ -13,9 +13,7 @@
     "type-check": "tsc --noEmit",
     "preview": "next build && next start",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
-    "pre-deploy": "node scripts/pre-deploy-check.js",
-    "deploy:preview": "npm run pre-deploy && vercel",
-    "deploy:production": "npm run pre-deploy && vercel --prod"
+    "pre-deploy": "node scripts/pre-deploy-check.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
