@@ -15,6 +15,10 @@
     {
       "source": "/alfredo-mentoria/termos-e-condicoes",
       "destination": "/termos"
+    },
+    {
+      "source": "/((?!alfredo-mentoria).*)",
+      "destination": "https://trendlyprojects.vercel.app/$1"
     }
   ]
 }
