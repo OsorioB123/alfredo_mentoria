@@ -94,11 +94,12 @@ export function StaggerContainer({
   const { ref, controls, containerVariants } = useScrollAnimation()
 
   const customContainerVariants = {
-    ...containerVariants,
+    hidden: { opacity: 0 },
     visible: {
-      ...containerVariants.visible,
+      opacity: 1,
       transition: {
-        ...containerVariants.visible.transition,
+        duration: 0.6,
+        ease: "easeOut",
         staggerChildren: staggerDelay
       }
     }
@@ -150,3 +151,4 @@ export function StaggerItem({
     </motion.div>
   )
 }
+

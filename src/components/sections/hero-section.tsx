@@ -5,7 +5,8 @@ import { motion } from "framer-motion"
 import { ArrowRight, Clock, Users, Target } from "lucide-react"
 import { IMAGES, STATS, SITE_CONFIG } from "@/lib/constants"
 import { AnimatedButton } from "@/components/ui/animated-button"
-import { AnimatedStat, StatCard } from "@/components/ui/animated-card"
+import { AnimatedCard } from "@/components/ui/animated-card"
+// import { AnimatedStat } from "@/components/ui/animated-number"
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/fade-in"
 
 const titleVariants = {
@@ -134,7 +135,7 @@ export function HeroSection() {
               </motion.div>
               <div>
                 <p className="text-sm font-medium tracking-tight text-white">
-                  <AnimatedStat value={STATS.programDuration} suffix=" semanas intensivas" />
+                  <span>{STATS.programDuration} semanas intensivas</span>
                 </p>
                 <p className="text-xs text-gray-500 mt-0.5">Mentoria ao vivo</p>
               </div>
@@ -153,7 +154,7 @@ export function HeroSection() {
               <div>
                 <p className="text-sm font-medium tracking-tight text-white">
                   Apenas <span className="text-red-400 font-semibold">
-                    <AnimatedStat value={STATS.maxStudents} suffix=" vagas" />
+                    <span>{STATS.maxStudents} vagas</span>
                   </span>
                 </p>
                 <p className="text-xs text-gray-500 mt-0.5">Primeira turma</p>
@@ -204,21 +205,33 @@ export function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.8, duration: 0.6 }}
               >
-                <StatCard
-                  value={STATS.billionMoved}
-                  label="Movimentado"
-                  delay={2.1}
-                />
-                <StatCard
-                  value={STATS.yearsExperience}
-                  label="Anos"
-                  delay={2.3}
-                />
-                <StatCard
-                  value={STATS.productsImported}
-                  label="Produtos"
-                  delay={2.5}
-                />
+                <AnimatedCard className="rounded-xl bg-black/20 backdrop-blur-md border border-yellow-600/30 p-3 shadow-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <span className="text-lg font-semibold text-white tracking-tight">
+                      {STATS.billionMoved}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-white/70">Movimentado</p>
+                </AnimatedCard>
+                <AnimatedCard className="rounded-xl bg-black/20 backdrop-blur-md border border-yellow-600/30 p-3 shadow-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <span className="text-lg font-semibold tracking-tight text-white">
+                      {STATS.yearsExperience}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-white/70">Anos</p>
+                </AnimatedCard>
+                <AnimatedCard className="rounded-xl bg-black/20 backdrop-blur-md border border-yellow-600/30 p-3 shadow-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <span className="text-lg font-semibold tracking-tight text-white">
+                      {STATS.productsImported}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-white/70">Produtos</p>
+                </AnimatedCard>
               </motion.div>
             </motion.div>
           </FadeIn>

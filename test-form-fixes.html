@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Correções do Formulário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #111;
+            color: white;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+        .check-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #222;
+            border-radius: 4px;
+        }
+        .status {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .fixed { color: #00ff00; }
+        .issue { color: #ff0000; }
+        .info { color: #00bfff; }
+        .test-link {
+            display: inline-block;
+            background: #ca8a04;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>✅ CORREÇÕES IMPLEMENTADAS NO FORMULÁRIO</h1>
+
+    <div class="test-section">
+        <h2>🎯 Problemas Específicos Corrigidos</h2>
+
+        <div class="check-item">
+            <strong>1. Radio Buttons Não Selecionáveis:</strong>
+            <span class="status fixed">✅ CORRIGIDO</span>
+            <ul>
+                <li>Adicionado onClick handler no label para trigger manual</li>
+                <li>Melhorada área clicável com padding e hover states</li>
+                <li>Background hover para melhor feedback visual</li>
+                <li>AnimatePresence para animação suave do dot interior</li>
+            </ul>
+        </div>
+
+        <div class="check-item">
+            <strong>2. Labels Flutuantes Sem Background:</strong>
+            <span class="status fixed">✅ CORRIGIDO</span>
+            <ul>
+                <li>Adicionado background sólido: rgb(31, 41, 55)</li>
+                <li>Padding aumentado para px-2 para melhor legibilidade</li>
+                <li>zIndex: 10 para garantir sobreposição</li>
+                <li>Border-radius para visual mais polido</li>
+            </ul>
+        </div>
+
+        <div class="check-item">
+            <strong>3. UX Melhorada:</strong>
+            <span class="status fixed">✅ IMPLEMENTADO</span>
+            <ul>
+                <li>Hover states mais claros com background cinza</li>
+                <li>Área clicável expandida (full width para radio)</li>
+                <li>Transições suaves mantidas</li>
+                <li>Feedback visual imediato ao clicar</li>
+                <li>Checkbox também com mesmo tratamento</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Como Testar</h2>
+
+        <a href="http://localhost:3000/inscricao" class="test-link" target="_blank">
+            ➡️ TESTAR FORMULÁRIO AGORA
+        </a>
+
+        <div class="check-item">
+            <strong>Passos Específicos de Teste:</strong>
+            <ol>
+                <li><strong>Passo 2</strong> - Teste "Você já possui CNPJ?" - clique em Sim/Não</li>
+                <li><strong>Passo 2</strong> - Teste "Você já tentou importar antes?" - clique em Sim/Não</li>
+                <li><strong>Passo 3</strong> - Teste todas as opções de comprometimento</li>
+                <li><strong>Passo 4</strong> - Teste as opções de seleção</li>
+                <li><strong>Passo 5</strong> - Teste radio de investimento e checkbox de termos</li>
+                <li><strong>Campos de texto</strong> - Digite e veja labels flutuando com background</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Detalhes Técnicos das Correções</h2>
+
+        <div class="check-item">
+            <strong>AnimatedRadioGroup:</strong>
+            <ul>
+                <li>onClick handler: <code>onClick={(e) => { e.preventDefault(); onValueChange(option.value) }}</code></li>
+                <li>Hover state: <code>hover:bg-gray-800/50</code></li>
+                <li>Área clicável: <code>w-full py-2 px-3</code></li>
+                <li>AnimatePresence para dot interno</li>
+            </ul>
+        </div>
+
+        <div class="check-item">
+            <strong>Floating Labels:</strong>
+            <ul>
+                <li>Background: <code>backgroundColor: isFocused || hasValue ? 'rgb(31, 41, 55)' : 'transparent'</code></li>
+                <li>Z-index: <code>zIndex: 10</code></li>
+                <li>Padding: <code>px-2 rounded</code></li>
+            </ul>
+        </div>
+
+        <div class="check-item">
+            <strong>AnimatedCheckbox:</strong>
+            <ul>
+                <li>Mesmo tratamento que radio buttons</li>
+                <li>onClick manual com toggle</li>
+                <li>Área expandida para melhor UX</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>✨ Resultado Esperado</h2>
+
+        <div class="check-item">
+            <span class="status info">✅ Radio buttons 100% funcionais</span>
+            <p>Clique em qualquer parte do label deve selecionar a opção</p>
+        </div>
+
+        <div class="check-item">
+            <span class="status info">✅ Labels sempre legíveis</span>
+            <p>Background sólido quando labels flutuam para cima</p>
+        </div>
+
+        <div class="check-item">
+            <span class="status info">✅ Feedback visual claro</span>
+            <p>Hover states, transições suaves, área clicável óbvia</p>
+        </div>
+
+        <div class="check-item">
+            <span class="status info">✅ Mobile responsive</span>
+            <p>Funciona bem em todos os tamanhos de tela</p>
+        </div>
+    </div>
+
+    <p><strong>Status:</strong> <span class="status fixed">PROBLEMAS CORRIGIDOS ✅</span></p>
+    <p><em>Teste no link acima para confirmar que todos os problemas foram resolvidos.</em></p>
+</body>
+</html>

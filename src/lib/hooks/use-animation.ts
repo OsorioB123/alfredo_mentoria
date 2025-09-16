@@ -18,7 +18,18 @@ export function useScrollAnimation(threshold = 0.1) {
     }
   }, [controls, inView])
 
-  return { ref, controls, inView }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  return { ref, controls, inView, containerVariants }
 }
 
 // Hook para animação de contador/número crescente

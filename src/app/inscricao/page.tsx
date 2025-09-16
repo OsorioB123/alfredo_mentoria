@@ -21,7 +21,7 @@ import {
   step5Schema,
   type FormData
 } from "@/lib/validations/form"
-import { submitToGoogleSheets, getGoogleSheetsConfig } from "@/lib/services/google-sheets"
+import { submitToGoogleSheets, checkEnvironmentVariables } from "@/lib/services/google-sheets"
 
 const stepVariants = {
   enter: (direction: number) => ({
@@ -44,6 +44,7 @@ export default function InscricaoPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [direction, setDirection] = useState(0)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const router = useRouter()
 
   const {
@@ -87,24 +88,50 @@ export default function InscricaoPage() {
   }
 
   const onSubmit = async (data: FormData) => {
+    console.log('🚀 Iniciando submissão do formulário...')
+    console.log('📊 Dados do formulário coletados:', data)
+
     setIsSubmitting(true)
+    setSubmitError(null)
 
     try {
-      const config = getGoogleSheetsConfig()
+      // Verificar configuração das variáveis de ambiente
+      const envCheck = checkEnvironmentVariables()
+      console.log('🔍 Verificação das variáveis de ambiente:', envCheck)
 
-      if (config) {
-        const result = await submitToGoogleSheets(data, config)
-
-        if (!result.success) {
-          console.error("Erro ao enviar para Google Sheets:", result.error)
-        }
-      } else {
-        console.log("Google Sheets não configurado, dados do formulário:", data)
+      if (!envCheck.configured) {
+        const errorMsg = `Configuração incompleta: ${envCheck.errors.join(', ')}`
+        console.error('❌', errorMsg)
+        throw new Error(errorMsg)
       }
 
-      router.push("/inscricao/obrigado")
+      console.log('✅ Variáveis de ambiente configuradas corretamente')
+      console.log('🔗 URL do Google Apps Script:', envCheck.url)
+
+      console.log('📤 Enviando dados para Google Sheets...')
+      const result = await submitToGoogleSheets(data)
+
+      console.log('📥 Resultado do envio:', result)
+
+      if (result.success) {
+        console.log('✅ Formulário enviado com sucesso!')
+
+        // Track conversion success
+        if (typeof window !== 'undefined' && (window as any).trackFormSubmission) {
+          (window as any).trackFormSubmission()
+        }
+
+        // Redirecionar para página de agradecimento
+        router.push("/inscricao/obrigado")
+      } else {
+        console.error('❌ Erro no envio:', result.error)
+        setSubmitError(result.error || 'Erro desconhecido ao enviar formulário')
+      }
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error)
+      console.error("💥 Erro ao enviar formulário:", error)
+
+      const errorMessage = error instanceof Error ? error.message : 'Erro inesperado ao enviar formulário'
+      setSubmitError(errorMessage)
     } finally {
       setIsSubmitting(false)
     }
@@ -353,14 +380,22 @@ export default function InscricaoPage() {
         required
         label={
           <span>
-            Concordo em receber comunicações sobre a mentoria e entendo que meus dados serão utilizados conforme a{" "}
-            <a href="#" className="text-yellow-500 hover:underline">
-              Política de Privacidade
-            </a>
-            .
+            Aceito os termos e condições e concordo em receber comunicações sobre a mentoria "Do Zero ao Primeiro Contêiner" com Alfredo ABN8 Trading.
           </span>
         }
       />
+
+      {/* Mostrar erro de submissão se houver */}
+      {submitError && (
+        <div className="p-4 bg-red-900/50 border border-red-500 rounded-lg">
+          <p className="text-red-200 text-sm">
+            <strong>Erro ao enviar:</strong> {submitError}
+          </p>
+          <p className="text-red-300 text-xs mt-2">
+            Por favor, tente novamente. Se o problema persistir, entre em contato conosco.
+          </p>
+        </div>
+      )}
     </motion.div>
   )
 
@@ -376,16 +411,22 @@ export default function InscricaoPage() {
   }
 
   return (
-    <PageTransition className="min-h-screen text-white bg-black">
-      <div
-        className="fixed top-0 w-full h-screen bg-cover bg-center -z-10"
-        style={{
-          backgroundImage: "url('https://i.ibb.co/k2jYDptr/Gemini-Generated-Image-7n8acu7n8acu7n8a-1.webp?w=800&q=80')"
-        }}
-      />
-      <div className="absolute w-full h-[400px] left-0 top-0 -z-10 bg-gradient-to-b from-gray-900/80 to-transparent" />
+    <div
+      className="min-h-screen text-white relative"
+      style={{
+        backgroundImage: "url('https://i.ibb.co/k2jYDptr/Gemini-Generated-Image-7n8acu7n8acu7n8a-1.webp?w=800&q=80')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#1f2937" // Fallback color
+      }}
+    >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-60" />
 
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      {/* Content */}
+      <PageTransition className="relative z-10">
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         {/* Header */}
         <FadeIn className="text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white mb-4">
@@ -489,6 +530,7 @@ export default function InscricaoPage() {
                     type="submit"
                     variant="primary"
                     isLoading={isSubmitting}
+                    disabled={isSubmitting}
                     className="flex items-center gap-2"
                   >
                     {!isSubmitting && <Send className="w-4 h-4" />}
@@ -499,9 +541,10 @@ export default function InscricaoPage() {
             </motion.div>
           </form>
         </motion.div>
-      </section>
 
-      <LoadingOverlay isVisible={isSubmitting} message="Enviando sua inscrição..." />
-    </PageTransition>
+        <LoadingOverlay isVisible={isSubmitting} message="Enviando sua inscrição..." />
+      </section>
+      </PageTransition>
+    </div>
   )
 }
