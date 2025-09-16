@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Send, ChevronLeft, ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 
 import { AnimatedButton } from "@/components/ui/animated-button"
@@ -421,7 +422,15 @@ export default function InscricaoPage() {
         required
         label={
           <span>
-            Aceito os termos e condições e concordo em receber comunicações sobre a mentoria "Do Zero ao Primeiro Contêiner" com Alfredo ABN8 Trading.
+            Aceito os{" "}
+            <Link
+              href="/termos"
+              className="text-yellow-400 hover:text-yellow-300 underline transition-colors duration-200"
+              onClick={(e) => e.stopPropagation()}
+            >
+              termos e condições
+            </Link>{" "}
+            e concordo em receber comunicações sobre a mentoria "Do Zero ao Primeiro Contêiner" com Alfredo ABN8 Trading.
           </span>
         }
       />
