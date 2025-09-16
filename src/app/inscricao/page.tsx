@@ -46,6 +46,7 @@ export default function InscricaoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [direction, setDirection] = useState(0)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitAttempted, setSubmitAttempted] = useState(false)
   const router = useRouter()
 
   const {
@@ -96,6 +97,7 @@ export default function InscricaoPage() {
     console.log('🚀 Iniciando submissão do formulário...')
     console.log('📊 Dados do formulário coletados:', data)
 
+    setSubmitAttempted(true)
     setIsSubmitting(true)
     setSubmitError(null)
 
@@ -381,7 +383,7 @@ export default function InscricaoPage() {
         id="terms"
         checked={watchedValues.terms || false}
         onCheckedChange={(checked) => setValue("terms", checked)}
-        error={errors.terms?.message}
+        error={submitAttempted ? errors.terms?.message : undefined}
         required
         label={
           <span>

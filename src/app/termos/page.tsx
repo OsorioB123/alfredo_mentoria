@@ -1,9 +1,20 @@
 "use client"
 
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 
 export default function TermosPage() {
+  const router = useRouter()
+
+  const handleBack = () => {
+    // Verifica se há histórico para voltar, senão vai para a inscrição
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      router.back()
+    } else {
+      router.push('/inscricao')
+    }
+  }
+
   return (
     <div className="antialiased selection:bg-white selection:text-black text-white bg-black min-h-screen">
       <div className="absolute w-full h-[816px] left-0 top-0 -z-10"></div>
@@ -12,13 +23,13 @@ export default function TermosPage() {
       <div className="relative z-10">
         <section className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
           <div className="mb-8">
-            <Link
-              href="/inscricao"
-              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200"
+            <button
+              onClick={handleBack}
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               Voltar para inscrição
-            </Link>
+            </button>
           </div>
 
           <div className="bg-black/60 backdrop-blur-sm rounded-2xl border border-white/10 p-6 sm:p-8 shadow-lg">
