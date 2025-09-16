@@ -8,9 +8,9 @@ export function useScrollAnimation(threshold = 0.1) {
   const controls = useAnimation()
   const ref = useRef(null)
   const inView = useInView(ref, {
-    threshold,
+    amount: threshold,
     once: true // Anima apenas uma vez
-  })
+  } as any)
 
   useEffect(() => {
     if (inView) {
@@ -36,7 +36,7 @@ export function useScrollAnimation(threshold = 0.1) {
 export function useCountAnimation(end: number, duration = 2000, start = 0) {
   const controls = useAnimation()
   const ref = useRef(null)
-  const inView = useInView(ref, { threshold: 0.3, once: true })
+  const inView = useInView(ref, { amount: 0.3, once: true } as any)
 
   useEffect(() => {
     if (inView) {
@@ -46,7 +46,7 @@ export function useCountAnimation(end: number, duration = 2000, start = 0) {
           duration: duration / 1000,
           ease: "easeOut"
         }
-      })
+      } as any)
     }
   }, [controls, inView, end, duration])
 
@@ -57,7 +57,7 @@ export function useCountAnimation(end: number, duration = 2000, start = 0) {
 export function useStaggerAnimation(delayChildren = 0.1, staggerChildren = 0.1) {
   const controls = useAnimation()
   const ref = useRef(null)
-  const inView = useInView(ref, { threshold: 0.1, once: true })
+  const inView = useInView(ref, { amount: 0.1, once: true } as any)
 
   useEffect(() => {
     if (inView) {

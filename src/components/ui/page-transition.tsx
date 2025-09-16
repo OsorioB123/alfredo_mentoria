@@ -32,7 +32,7 @@ const pageVariants = {
       ease: "easeIn"
     }
   }
-}
+} as any
 
 export function PageTransition({ children, className }: PageTransitionProps) {
   return (

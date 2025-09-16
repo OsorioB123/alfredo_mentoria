@@ -18,7 +18,7 @@ export function AnimatedNumber({
   className = ""
 }: AnimatedNumberProps) {
   const ref = useRef(null)
-  const inView = useInView(ref, { threshold: 0.3, once: true })
+  const inView = useInView(ref, { amount: 0.3, once: true } as any)
   const motionValue = useMotionValue(0)
   const rounded = useTransform(motionValue, (latest) => Math.round(latest))
 
@@ -60,7 +60,7 @@ export function AnimatedStat({
   className?: string
 }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { threshold: 0.3, once: true })
+  const inView = useInView(ref, { amount: 0.3, once: true } as any)
 
   // Se for string (como "R$ 1bi"), apenas anima a entrada
   if (typeof value === "string") {

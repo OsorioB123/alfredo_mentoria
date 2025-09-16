@@ -35,7 +35,7 @@ const wordVariants = {
       ease: "easeOut"
     }
   }
-}
+} as any
 
 export function HeroSection() {
   return (

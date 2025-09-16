@@ -103,7 +103,7 @@ export function StaggerContainer({
         staggerChildren: staggerDelay
       }
     }
-  }
+  } as any
 
   return (
     <motion.div
@@ -139,7 +139,7 @@ export function StaggerItem({
         ease: "easeOut"
       }
     }
-  }
+  } as any
 
   return (
     <motion.div
