@@ -15,14 +15,6 @@ const nextConfig: NextConfig = {
   },
   // Performance optimizations
   experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
     optimizePackageImports: [
       'framer-motion',
       'lucide-react',
@@ -33,8 +25,20 @@ const nextConfig: NextConfig = {
       '@radix-ui/react-slot'
     ],
     optimizeCss: true,
-    serverComponentsExternalPackages: [],
   },
+
+  // Turbopack configuration
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+
+  // Server external packages
+  serverExternalPackages: [],
 
   // Image optimization
   images: {
@@ -125,8 +129,6 @@ const nextConfig: NextConfig = {
   // Static optimization
   trailingSlash: false,
 
-  // Generate static pages
-  generateStaticParams: true,
 
   // Bundle analyzer (only in development)
   ...(process.env.ANALYZE === 'true' && {
