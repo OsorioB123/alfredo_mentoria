@@ -401,19 +401,19 @@ export default function ObrigadoPage() {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm text-gray-300">
                   <motion.a
-                    href="mailto:contato@abn8trading.com"
+                    href="mailto:comercial@trendlycorp.com"
                     className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <Mail className="w-4 h-4" />
-                    contato@abn8trading.com
+                    comercial@trendlycorp.com
                   </motion.a>
 
                   <span className="hidden sm:block text-gray-600">|</span>
 
                   <motion.a
-                    href="https://wa.me/5511999999999"
+                    href="https://wa.me/5511992478484"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors"
